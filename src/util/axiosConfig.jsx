@@ -10,15 +10,18 @@ const axiosConfig = axios.create({
 
 });
 
-//list of endpoinnts that do not reuuire authorization header
+//list of endpoinnts that do not require authorization header
 const excludeEndpoints = ["/login","/register","/status","/activate","/health"];
 
 //request interceptor
 axiosConfig.interceptors.request.use((config) => {
     const shouldSkiptoken = excludeEndpoints.some((endpoint) => {
-        config.url?.includes(endpoint)
+
+        return config.url?.endsWith(endpoint);
+
 
     });
+
 
     if(!shouldSkiptoken){
         const accessToken = localStorage.getItem("token");
@@ -35,7 +38,7 @@ axiosConfig.interceptors.request.use((config) => {
 axiosConfig.interceptors.response.use((response) => {
     return response;
 },(error) => {
-   if (error.resonse){
+   if (error.response){
        if(error.response.status === 401) {
            window.location.href = "/login";
        }else if (error.response.status === 500) {
@@ -47,3 +50,8 @@ axiosConfig.interceptors.response.use((response) => {
    }
    return Promise.reject(error);
 })
+
+
+
+
+export default axiosConfig;
