@@ -6,7 +6,6 @@ import {LoaderCircle} from "lucide-react";
 const AddCategoryForm = ({onAddCategory, initialCategoryData, isEditing}) => {
     const [category, setCategory] = useState({
         name: "",
-        type: "income",  // default to income, you can choose expense if needed
         icon: ""
     });
 
@@ -14,43 +13,22 @@ const AddCategoryForm = ({onAddCategory, initialCategoryData, isEditing}) => {
 
     useEffect(() => {
         if (isEditing && initialCategoryData) {
-            // Always set fallback for type, so it's NEVER undefined/empty
-            setCategory({
-                ...initialCategoryData,
-                type: initialCategoryData.type || "income",
-            });
         } else {
-            setCategory({name: "", type: "income", icon: ""});
         }
     }, [isEditing, initialCategoryData]);
 
     const categoryTypeOptions = [
         {value: "income", label: "Income"},
         {value: "expense", label: "Expense"},
-    ];
-
     const handleChange = (key, value) => {
         setCategory({...category, [key]: value});
-    };
 
     const handleSubmit = async () => {
-        // Validate type before submit!
-        if (category.type !== "income" && category.type !== "expense") {
-            alert("Please select category type (Income or Expense)");
-            return;
-        }
         setLoading(true);
         try {
-            // Always submit correct type!
-            await onAddCategory({
-                ...category,
-                type: category.type.trim().toLowerCase(), // guarantee format
-            });
         } finally {
             setLoading(false);
         }
-    };
-
     return (
         <div className="p-4">
             <EmojiPickerPopup
@@ -69,8 +47,6 @@ const AddCategoryForm = ({onAddCategory, initialCategoryData, isEditing}) => {
                 value={category.type}
                 onChange={({target}) => handleChange("type", target.value)}
                 isSelect={true}
-                options={categoryTypeOptions}
-            />
             <div className="flex justify-end mt-6">
                 <button
                     type="button"
@@ -90,7 +66,5 @@ const AddCategoryForm = ({onAddCategory, initialCategoryData, isEditing}) => {
                 </button>
             </div>
         </div>
-    );
-};
 
 export default AddCategoryForm;
