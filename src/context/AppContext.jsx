@@ -1,17 +1,25 @@
 import {createContext, useState} from "react";
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
 export const AppContextProvider = ({children}) =>{
 
     const [user,setUser] = useState(null);
+
+    const clearUser = () => {
+        setUser(null);
+    }
+
+
     const contextValue = {
-        user
+        user,
+        setUser,
+        clearUser
 
     }
     return (
-        <AppContextProvider value={contextValue}>
+        <AppContext.Provider value={contextValue}>
             {children}
-        </AppContextProvider>
+        </AppContext.Provider>
     )
 }
