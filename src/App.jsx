@@ -14,7 +14,7 @@ const App = () => {
             <Toaster />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Root />} />
+                    <Route path="/" element={<Login />} />
                     <Route path="/dashboard" element={<Home />} />
                     <Route path="/income" element={<Income />} />
                     <Route path="/expense" element={<Expense />} />
@@ -28,13 +28,13 @@ const App = () => {
     )
 }
 
-const Root = () => {
-    const isAuthenticated = !!localStorage.getItem("token");
-    return isAuthenticated ? (
-        <Navigate to="/dashboard" />
-    ):(
-        <Navigate to="/login" />
-    );
-}
+// const Root = () => {
+//     const isAuthenticated = !!localStorage.getItem("token");
+//     return isAuthenticated ? (
+//         <Navigate to="/dashboard" />
+//     ):(
+//         <Navigate to="/login" />
+//     );
+// }
 
 export default App;

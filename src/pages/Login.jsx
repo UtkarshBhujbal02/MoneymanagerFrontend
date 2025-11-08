@@ -6,7 +6,6 @@ import {validateEmail} from "../util/validation.js";
 import axiosConfig from "../util/axiosConfig.jsx";
 import {API_ENDPOINTS} from "../util/apiEndpoints.js";
 import {AppContext} from "../context/AppContext.jsx";
-import toast from "react-hot-toast";
 import {LoaderCircle} from "lucide-react";
 
 const Login = ()=>{
@@ -113,8 +112,24 @@ const Login = ()=>{
                             Don't have an account?
                             <Link to="/signup" className="font-medium  underline transition-colors ">Signup</Link>
                         </p>
+
+
+                        <p className="text-sm text-slate-800 text-center mt-6">
+                            Demo Account
+                        </p>
+
+
                     </form>
+                    <div className='flex items-center justify-center gap-2'>
+                        <p className="text-sm text-slate-800 text-center">
+                            Email: testuser@gmail.com
+                        </p>
+                        <p className="text-sm text-slate-800 text-center">
+                            Password: 123456
+                        </p>
+                    </div>
                 </div>
+
             </div>
         </div>
 
